@@ -1,8 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
-
- 
   def create
     @link = Link.find(params[:link_id])
     @comment = @link.comments.new(comment_params)
@@ -13,20 +12,18 @@ class CommentsController < ApplicationController
         format.html { redirect_to @link, notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else
-        format.html { render action: "new"}
+        format.html { render action: "new" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end
-
- 
 
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
