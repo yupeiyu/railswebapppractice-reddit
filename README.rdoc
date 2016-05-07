@@ -1,4 +1,4 @@
 == README
 
-learn this rails web app from https://mackenziechild.me/
+learn this rails web app from https://mackenziechild.me
 
